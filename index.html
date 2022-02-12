@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA==" crossorigin="anonymous"></script>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <link rel="stylesheet" href="todo.css" type="text/css">
+  <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+    const rootEl = document.getElementById('root');
+
+  
+
+const TodoList = () => {
+  // Données, logique, ...
+  const [todos, setTodos] = React.useState([
+  {
+    id: 1,
+    text: 'Faire la vaisselle',
+    createdAt: '2020-03-10',
+    status: 'ongoing'
+  },
+  {
+    id: 2,
+    text: 'Sortir le chien',
+    createdAt: '2020-03-02',
+    status: 'ongoing'
+  },
+  {
+    id: 3,
+    text: 'Apprendre React',
+    createdAt: '2020-02-24',
+    status: 'ongoing'
+  },
+  {
+    id: 4,
+    text: 'Apprendre React',
+    createdAt: '2020-02-24',
+    status: 'ongoing'
+  }
+]);
+
+const [doneTodos, setDoneTodos] = React.useState([]);
+
+const handleClick = (todo) => {
+  const untouchedTodos = todos.filter((currTodo) => currTodo.id !== todo.id);
+  setTodos([...untouchedTodos]);
+  setDoneTodos([...doneTodos, {
+    ...todo,
+    status: 'done'
+  }])
+};
+
+
+const listItems = todos.map((todo) => {
+  return (
+    <li 
+    key={todo.id}
+    onClick={() => handleClick(todo)}
+    className='todo'>
+    <span>{new Date(todo.createdAt).toLocaleDateString()}</span>
+    <p>{todo.text}</p>
+    </li>
+  );
+});
+
+const listDone = doneTodos.map((todo) => {
+  return (
+    <li 
+    key={todo.id}
+    className='todo done'>
+    <span>{new Date(todo.createdAt).toLocaleDateString()}</span>
+    <p>{todo.text}</p>
+    </li>
+  );
+});
+
+const todoList = listItems.length > 0 ? <ul>{listItems}</ul> : <p>Il n'y a aucun todo!</p>;
+const doneTodoList = listDone.length > 0 ? <ul>{listDone}</ul> : <p>Il n'y a aucun doto terminé!</p>;
+
+return (
+  <div className='wrapper'>
+    <h2>Mes todo</h2>
+    {todoList}
+    <hr />
+    {doneTodoList}
+  </div>
+);
+};
+
+
+
+ReactDOM.render(<TodoList />, rootEl);
+    
+
+   
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+<!--const user = {
+  firstname: 'Jim',
+  lastname: 'Darby',
+  dateOfBirth: '1985-10-23T00:00:00.000Z',
+  job: 'Front-end Developper',
+  children: [
+    {
+      firstname: 'Paul',
+      age: 10
+    },
+    {
+      firstname: 'Erin',
+      age: 16
+    }
+  ]
+}
+
+
+function MarkUp() {
+ return {
+   __html: "<h1>Physique Quantique: Un bilan mitigé</h1>"+
+"<p>L'infiniment <u>petit</u> imperméable aux <i>modèles de Maxwell</i></p>"+
+"<p><u>Plank:</u> Discontinuité des échanges d'énergie d'émission et d'absorbtion <strong>dE=nhV</strong></p>"
+ };
+}
+
+
+const el = (
+
+  <div className='prewiev'
+    dangerouslySetInnerHTML={MarkUp()} />
+  /*
+    <div className='user-profile'>
+      <h1>{user.firstname} {user.lastname}</h1>
+      <h2>Born {new Date(user.dateOfBirth).toLocaleDateString()}</h2>
+      <p>Working as a {user.job.toUpperCase()}</p>
+      <p>{user.children.length} kids</p>
+    </div>
+
+);
+-->
+
+<!--
+const StopWatch = () => {
+const [second, setSecond] = React.setSecond(0);
+const [active, setActive] = React.setActive(false);
+
+
+
+     
+    React.useEffect(() => {
+  // Ce code sera exécuté à chaque fois que les variables 'foo' ou 'bar' reçoivent une modification.
+  let interval = null;
+  if (active) {
+     interval =  setInterval(() => {
+          setSecond(second => second + 1);
+      }, 1000);
+  }
+  return () => clearInterval(interval);
+    },[second, active]);
+ 
+
+
+
+
+const handleStart = () => {
+setActive(true);
+};
+
+const handleStop = () => {
+setActive(false);
+};
+
+const handleClear = () => {
+setSecond(0);
+setActive(false);
+};
+
+return (
+<span>
+<p>{second}s</p>
+<button type="button" onClick={handleStart}>Start</button>
+<button type="button" onClick={handleStop}>Stop</button>
+<button type="button" onClick={handleClear}>Clear</button>
+</span>
+
+);     
+
+};    
+     ReactDOM.render(<StopWatch />, document.getElementById('root'));
+     //export default index;
+     
+     
+
+     
+/* const root    = document.getElementById('root');
+
+     const element = React.createElement('div', 
+     {className    = 'header container'},
+     React.createElement('h1', {} `Bienvenue sur le site!`),
+     React.createElement('h2', {} `Ce site a été conçu pour:`),
+     React.createElement(
+         'ul',
+
+         className = 'services',
+         id        = 'site-services-list',
+         React.createElement('li', {} `Obtenir des informations sur la société`),
+         React.createElement('li', {} `Echanger avec vos collègues`),
+         React.createElement('li', {} `Vous inscrire aux afterwork qui sont organisés`)
+     )
+     );*/
+
+
+     
+    </script>
+    </body>
+    </html>
+-------------------------------------------------------------------------------
+
+ const userStatus = 'admin';
+      const orders = [
+        {
+          id: 1,
+          client: 'Christina Dean',
+          email: 'christina.dean@example.com',
+          total: 49.87,
+          createdAt: '2020-03-10'
+        },
+        {
+          id: 2,
+          client: 'Peter Gomez',
+          email: 'peter.gomez@example.com',
+          total: 23.64,
+          createdAt: '2020-03-02'
+        },
+        {
+          id: 3,
+          client: 'Clarence Mitchelle',
+          email: 'clarence.mitchelle@example.com',
+          total: 107.20,
+          createdAt: '2020-02-24'
+        }
+      ];
+
+       let orderList = <h1>Il semblerait que vous ne soyez pas administrateur</h1>
+       if (userStatus === 'admin') {
+         const listItems = orders.map((order) => {
+           return (
+             <li key={order.id}>
+              <h2>#{order.id} - {order.total} $</h2>
+              <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+              <p>{order.client} - {order.email}</p>
+            </li>
+           );
+         });
+         orderList = <ul>{listItems}</ul>;
+       }
+
+       const el = (
+         <div className='wrapper'>
+          {orderList}
+        </div>
+       );
+
+
+-->
